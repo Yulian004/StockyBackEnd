@@ -84,7 +84,7 @@ public class UserService
         dto.setName(u.getName());
         dto.setSurname(u.getSurname());
         dto.setEmail(u.getEmail());
-        dto.setRoles(u.getRoles().stream().map(Role::getRoleName)).collect(Collectors.toSet());
+        dto.setRoles(u.getRoles().stream().map(Role::getRoleName).collect(Collectors.toSet()));
 
         return dto;
     }
