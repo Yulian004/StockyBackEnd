@@ -7,9 +7,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -46,8 +44,12 @@ public class User extends BaseEntity implements UserDetails {
         return email;
     }
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Set<Options> options = new HashSet<>();
 
-
-
-
+    public void addOption(Options option)
+    {
+        options.add(option);
+        option.setUser(this);
+    }
 }
