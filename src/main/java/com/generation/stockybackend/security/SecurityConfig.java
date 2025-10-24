@@ -6,8 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -26,12 +29,11 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/login").permitAll()
                                 .requestMatchers("/api/auth/userInformation").hasRole("STANDARD")
                                 .requestMatchers("/api/adminController/**").hasRole("ADMIN")
+                                .requestMatchers("/api/SupervisorController/**").hasRole("ADMIN")
                                 .requestMatchers("/api/auth/register").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST).hasRole("SUPERVISOR")
-                                .requestMatchers(HttpMethod.PUT).authenticated()
-                                .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE).hasRole("SUPERVISOR")
+                                .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("ADMIN","SUPERVISOR")
+                                .requestMatchers(HttpMethod.PUT,"/api/**").authenticated()
+                                .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("ADMIN","SUPERVISOR")
                                 .anyRequest().permitAll()
                 ).addFilterBefore(filtro, UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -40,5 +42,17 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder getCypher() {
         return new BCryptPasswordEncoder();
+    }
+
+
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        UserDetails admin = User.builder()
+                .username("admin@email.com")
+                .password(getCypher().encode("admin123"))
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(admin);
     }
 }

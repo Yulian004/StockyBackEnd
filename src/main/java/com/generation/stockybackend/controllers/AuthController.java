@@ -20,14 +20,10 @@ public class AuthController
     private UserService userService;
 
     @PostMapping("register")
-    public void register(@RequestBody RegisterDto dto, HttpServletResponse response)
+    public void register(@RequestBody RegisterDto dto)
     {
-        String tokenUtente = userService.register(dto);
+        userService.register(dto);
 
-        Cookie cookie = new Cookie("token", tokenUtente);
-        cookie.setMaxAge(3600);
-        cookie.setPath("/api");
-        response.addCookie(cookie);
     }
 
     @PostMapping("login")

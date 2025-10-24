@@ -8,6 +8,7 @@ import com.generation.stockybackend.model.entities.Role;
 import com.generation.stockybackend.model.entities.User;
 import com.generation.stockybackend.model.repositories.RoleRepository;
 import com.generation.stockybackend.model.repositories.UserRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+@Log4j2
 @Service
 public class UserService
 {
@@ -40,11 +41,15 @@ public class UserService
         u.setEmail(dto.getEmail());
         String hash = encoder.encode(dto.getPassword());
         u.setPassword(hash);
-        u.setRoles(List.of(roleRepo.getUserRole()));
+
+        if(dto.getRole()!=null)
+            u.setRoles(List.of(roleRepo.getUserRole(),roleRepo.findByRoleName(dto.getRole().toUpperCase()).get()));
+        else
+            u.setRoles(List.of(roleRepo.getUserRole()));
         u.setToken(UUID.randomUUID().toString());
 
         repo.save(u);
-
+        log.info("Utente registrato con mail "+ u.getEmail());
         return u.getToken();
 
     }
