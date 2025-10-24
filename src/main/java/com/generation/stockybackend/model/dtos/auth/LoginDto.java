@@ -1,4 +1,4 @@
-package com.generation.stockybackend.model.dtos;
+package com.generation.stockybackend.model.dtos.auth;
 
 import lombok.Getter;
 import lombok.Setter;

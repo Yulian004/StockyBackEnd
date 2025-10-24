@@ -1,13 +1,13 @@
 package com.generation.stockybackend.services;
 
 import com.generation.stockybackend.exceptions.InvalidCredentials;
-import com.generation.stockybackend.model.dtos.LoginDto;
-import com.generation.stockybackend.model.dtos.RegisterDto;
-import com.generation.stockybackend.model.dtos.UserOutputDto;
-import com.generation.stockybackend.model.entities.Role;
-import com.generation.stockybackend.model.entities.User;
-import com.generation.stockybackend.model.repositories.RoleRepository;
-import com.generation.stockybackend.model.repositories.UserRepository;
+import com.generation.stockybackend.model.dtos.auth.LoginDto;
+import com.generation.stockybackend.model.dtos.auth.RegisterDto;
+import com.generation.stockybackend.model.dtos.auth.UserOutputDto;
+import com.generation.stockybackend.model.entities.auth.Role;
+import com.generation.stockybackend.model.entities.auth.User;
+import com.generation.stockybackend.model.repositories.auth.RoleRepository;
+import com.generation.stockybackend.model.repositories.auth.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,6 +1,6 @@
-package com.generation.stockybackend.model.repositories;
+package com.generation.stockybackend.model.repositories.auth;
 
-import com.generation.stockybackend.model.entities.User;
+import com.generation.stockybackend.model.entities.auth.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,9 +1,9 @@
 package com.generation.stockybackend.controllers;
 
-import com.generation.stockybackend.model.dtos.LoginDto;
-import com.generation.stockybackend.model.dtos.RegisterDto;
-import com.generation.stockybackend.model.dtos.UserOutputDto;
-import com.generation.stockybackend.model.entities.User;
+import com.generation.stockybackend.model.dtos.auth.LoginDto;
+import com.generation.stockybackend.model.dtos.auth.RegisterDto;
+import com.generation.stockybackend.model.dtos.auth.UserOutputDto;
+import com.generation.stockybackend.model.entities.auth.User;
 import com.generation.stockybackend.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;

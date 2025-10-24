@@ -1,5 +1,6 @@
-package com.generation.stockybackend.model.entities;
+package com.generation.stockybackend.model.entities.auth;
 
+import com.generation.stockybackend.model.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
