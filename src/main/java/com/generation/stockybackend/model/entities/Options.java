@@ -1,5 +1,6 @@
 package com.generation.stockybackend.model.entities;
 
+import com.generation.stockybackend.model.entities.auth.User;
 import com.generation.stockybackend.model.entities.products.Product;
 import com.generation.stockybackend.model.enums.OptionType;
 import jakarta.persistence.*;
@@ -30,6 +31,8 @@ public class Options extends BaseEntity
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
+
 	@PrePersist
 	public void onCreate()
 	{

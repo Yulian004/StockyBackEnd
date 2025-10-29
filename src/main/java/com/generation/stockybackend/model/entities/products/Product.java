@@ -38,19 +38,28 @@ public class Product extends BaseEntity
 	@Enumerated(EnumType.STRING)
 	private StockStatus status = StockStatus.OK;
 
-	public void updateQuantity(int change)
+	public void updateQuantity(int amount)
 	{
-		this.quantity+=change;
+		this.quantity+=amount;
 		checkLevel();
 	}
 
 	public void checkLevel()
 	{
+		if(quantity <= 0)
+		{
+			quantity = 0;
+			status = StockStatus.OUT_OF_STOCK;
+			return;
+		}
+
 		double ratio = (double)quantity/initialQuantity;
-		if (ratio <=sogliaMin2)
+		if (ratio <= sogliaMin2)
 			status= StockStatus.CRITICAL;
 		else if (ratio<= sogliaMin)
 			status = StockStatus.LOW;
+		else
+			status = StockStatus.OK;
 	}
 
 

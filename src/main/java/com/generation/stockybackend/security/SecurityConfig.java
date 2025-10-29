@@ -29,7 +29,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/login").permitAll()
                                 .requestMatchers("/api/auth/userInformation").hasRole("STANDARD")
                                 .requestMatchers("/api/adminController/**").hasRole("ADMIN")
-                                .requestMatchers("/api/SupervisorController/**").hasRole("ADMIN")
+                                .requestMatchers("/api/SupervisorController/**").hasRole("SUPERVISOR")
                                 .requestMatchers("/api/auth/register").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("ADMIN","SUPERVISOR")
                                 .requestMatchers(HttpMethod.PUT,"/api/**").authenticated()
@@ -46,13 +46,13 @@ public class SecurityConfig {
 
 
 
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails admin = User.builder()
-                .username("admin@email.com")
-                .password(getCypher().encode("admin123"))
-                .roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(admin);
-    }
+//    @Bean
+//    public InMemoryUserDetailsManager userDetailsService() {
+//        UserDetails admin = User.builder()
+//                .username("admin@email.com")
+//                .password(getCypher().encode("admin123"))
+//                .roles("ADMIN")
+//                .build();
+//        return new InMemoryUserDetailsManager(admin);
+//    }
 }

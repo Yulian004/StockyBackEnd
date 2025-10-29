@@ -4,10 +4,16 @@ import com.generation.stockybackend.exceptions.InvalidCredentials;
 import com.generation.stockybackend.model.dtos.auth.LoginDto;
 import com.generation.stockybackend.model.dtos.auth.RegisterDto;
 import com.generation.stockybackend.model.dtos.auth.UserOutputDto;
+import com.generation.stockybackend.model.dtos.product.ProductInputDto;
+import com.generation.stockybackend.model.dtos.product.ProductOutputDto;
+import com.generation.stockybackend.model.dtos.section.SectionOutputDto;
+import com.generation.stockybackend.model.entities.Section;
 import com.generation.stockybackend.model.entities.auth.Role;
 import com.generation.stockybackend.model.entities.auth.User;
+import com.generation.stockybackend.model.entities.products.Product;
 import com.generation.stockybackend.model.repositories.auth.RoleRepository;
 import com.generation.stockybackend.model.repositories.auth.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -92,5 +98,21 @@ public class UserService
         dto.setRoles(u.getRoles().stream().map(Role::getRoleName).collect(Collectors.toSet()));
 
         return dto;
+    }
+
+    public List<UserOutputDto> findAllAsDtos()
+    {
+        return repo.findAll().stream().map(this::convertToUserDto).toList();
+    }
+
+    public void update(UUID id, RegisterDto dto)
+    {
+        User res = repo.findById(id)
+                .orElseThrow( () -> new EntityNotFoundException("Section with %s not found".formatted(id)));
+        res.setRoles(List.of(roleRepo.getUserRole(),roleRepo.findByRoleName(dto.getRole().toUpperCase()).get()));
+
+        User user = repo.save(res);
+
+
     }
 }

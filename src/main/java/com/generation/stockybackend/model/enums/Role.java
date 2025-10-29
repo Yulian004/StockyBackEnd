@@ -1,8 +1,8 @@
 package com.generation.stockybackend.model.enums;
 
-public enum OptionType
+public enum Role
 {
-	ADD,
-	SUB,
-	ADJUSTMENT
+	STANDARD,
+	SUPERUSER,
+	ADMIN
 }
