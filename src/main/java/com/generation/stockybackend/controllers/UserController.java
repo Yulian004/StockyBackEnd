@@ -1,5 +1,6 @@
 package com.generation.stockybackend.controllers;
 
+import com.generation.stockybackend.model.dtos.auth.UserOutputDto;
 import com.generation.stockybackend.model.dtos.product.ProductOutputDto;
 import com.generation.stockybackend.model.entities.products.Product;
 import com.generation.stockybackend.services.products.ProductService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,5 +40,6 @@ public class UserController
 	{
 		productServ.adjustQuantity(id, quantita);
 	}
+
 
 }

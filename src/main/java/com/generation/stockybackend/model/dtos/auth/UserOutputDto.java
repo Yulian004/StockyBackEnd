@@ -3,6 +3,7 @@ package com.generation.stockybackend.model.dtos.auth;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -13,4 +14,5 @@ public class UserOutputDto
     private Set<String> roles;
     private String name;
     private String surname;
+    private LocalDate registrationDate;
 }

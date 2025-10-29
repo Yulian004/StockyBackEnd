@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -45,6 +47,7 @@ public class UserService
         u.setName(dto.getName());
         u.setSurname(dto.getSurname());
         u.setEmail(dto.getEmail());
+        u.setRegistrationDate(LocalDate.now());
         String hash = encoder.encode(dto.getPassword());
         u.setPassword(hash);
 
@@ -95,6 +98,7 @@ public class UserService
         dto.setName(u.getName());
         dto.setSurname(u.getSurname());
         dto.setEmail(u.getEmail());
+        dto.setRegistrationDate(u.getRegistrationDate());
         dto.setRoles(u.getRoles().stream().map(Role::getRoleName).collect(Collectors.toSet()));
 
         return dto;
@@ -111,8 +115,14 @@ public class UserService
                 .orElseThrow( () -> new EntityNotFoundException("Section with %s not found".formatted(id)));
         res.setRoles(List.of(roleRepo.getUserRole(),roleRepo.findByRoleName(dto.getRole().toUpperCase()).get()));
 
-        User user = repo.save(res);
+        repo.save(res);
 
 
+    }
+
+    public List<UserOutputDto> userRegisteredFromDate(LocalDate start)
+    {
+        List<User> users = repo.findByRegistrationDateGreaterThanEqual(start);
+        return users.stream().map(this::convertToUserDto).toList();
     }
 }

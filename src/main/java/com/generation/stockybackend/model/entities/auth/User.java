@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -20,6 +21,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(unique = true)
     private String email;
     private String token;
+    private LocalDate registrationDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
