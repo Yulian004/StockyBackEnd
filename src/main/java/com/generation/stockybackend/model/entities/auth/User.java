@@ -1,6 +1,7 @@
 package com.generation.stockybackend.model.entities.auth;
 
 import com.generation.stockybackend.model.entities.BaseEntity;
+import com.generation.stockybackend.model.entities.IntercomMessage;
 import com.generation.stockybackend.model.entities.Options;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,6 +23,12 @@ public class User extends BaseEntity implements UserDetails {
     private String email;
     private String token;
     private LocalDate registrationDate;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "destinatario")
+    private Set<IntercomMessage> messaggiRicevuti;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "mittente")
+    private Set<IntercomMessage> messaggiInviati;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
