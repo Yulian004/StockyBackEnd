@@ -18,27 +18,28 @@ import java.util.UUID;
 public class AdminController {
 	@Autowired
 	private UserService userServ;
+
 	@GetMapping("/userlist")
 	public List<UserOutputDto> findAllAsDtos()
 	{
 		return userServ.findAllAsDtos();
 	}
-	@PostMapping("/createuser")
+	@PostMapping("/create")
 	public String register(@RequestParam RegisterDto dto)
 	{
 		return userServ.register(dto);
 	}
 
-	@PostMapping("/userrole")
+	@PutMapping("/modify")
 	public void update(@RequestParam UUID id, @RequestParam RegisterDto dto)
 	{
 		userServ.update(id, dto);
 	}
 
-    @GetMapping("/userfromdate")
-    public List<UserOutputDto> userRegisteredFromDate (@RequestParam LocalDate start)
-    {
-        return userServ.userRegisteredFromDate (start);
-    }
+//    @GetMapping("/userfromdate")
+//    public List<UserOutputDto> userRegisteredFromDate (@RequestParam LocalDate start)
+//    {
+//        return userServ.userRegisteredFromDate (start);
+//    }
 
 }

@@ -113,6 +113,13 @@ public class UserService
     {
         User res = repo.findById(id)
                 .orElseThrow( () -> new EntityNotFoundException("Section with %s not found".formatted(id)));
+        res.setEmail(dto.getEmail());
+        res.setName(dto.getName());
+        res.setSurname(dto.getSurname());
+        if (!dto.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"))
+            throw new InvalidCredentials("Invalid Password");
+        String hash = encoder.encode(dto.getPassword());
+        res.setPassword(hash);
         res.setRoles(List.of(roleRepo.getUserRole(),roleRepo.findByRoleName(dto.getRole().toUpperCase()).get()));
 
         repo.save(res);

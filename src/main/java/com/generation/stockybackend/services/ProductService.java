@@ -1,27 +1,22 @@
-package com.generation.stockybackend.services.products;
+package com.generation.stockybackend.services;
 
 import com.generation.stockybackend.model.dtos.product.ProductInputDto;
 import com.generation.stockybackend.model.dtos.product.ProductOutputDto;
-import com.generation.stockybackend.model.dtos.section.SectionInputDto;
-import com.generation.stockybackend.model.dtos.section.SectionOutputDto;
 import com.generation.stockybackend.model.entities.Options;
 import com.generation.stockybackend.model.entities.Section;
-import com.generation.stockybackend.model.entities.auth.User;
 import com.generation.stockybackend.model.entities.products.Clothes;
 import com.generation.stockybackend.model.entities.products.Electronics;
 import com.generation.stockybackend.model.entities.products.Food;
 import com.generation.stockybackend.model.entities.products.Product;
 import com.generation.stockybackend.model.enums.OptionType;
-import com.generation.stockybackend.model.enums.StockStatus;
+import com.generation.stockybackend.model.enums.Size;
 import com.generation.stockybackend.model.repositories.SectionRepository;
 import com.generation.stockybackend.model.repositories.product.ClothesRepository;
 import com.generation.stockybackend.model.repositories.product.ElectronicsRepository;
 import com.generation.stockybackend.model.repositories.product.FoodRepository;
 import com.generation.stockybackend.model.repositories.product.ProductRepository;
-import com.generation.stockybackend.services.OptionsService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -285,7 +280,7 @@ public class ProductService
 		}
 		return prodotti;
 	}
-	public List<Clothes> productBySize(String size)
+	public List<Clothes> productBySize(Size size)
 	{
 		List<Clothes> clothes = cRepo.findClothesBySize(size);
 		if(clothes.isEmpty())

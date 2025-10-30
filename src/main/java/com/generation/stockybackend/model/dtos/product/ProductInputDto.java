@@ -39,4 +39,5 @@ public class ProductInputDto
 	private String color;
 	private Size size;
 
+
 }

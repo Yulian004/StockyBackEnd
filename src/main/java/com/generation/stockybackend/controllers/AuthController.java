@@ -13,20 +13,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("api")
 public class AuthController
 {
     @Autowired
     private UserService userService;
 
-    @PostMapping("register")
-    public void register(@RequestBody RegisterDto dto)
-    {
-        userService.register(dto);
 
-    }
-
-    @PostMapping("login")
+    @PostMapping("/login")
     public void login(@RequestBody LoginDto dto, HttpServletResponse response)
     {
         String tokenUtente = userService.login(dto);
