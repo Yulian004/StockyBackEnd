@@ -39,12 +39,19 @@ public class IntercomMessageService {
         User u = uRepo.findByEmail2(email);
         return u.getMessaggiRicevuti().stream().map(m->convertToDto(m)).toList();
     }
+    public List<IntercomMessageOutputDto> ReadSentMessages(String email)
+    {
+        User u = uRepo.findByEmail2(email);
+        return u.getMessaggiInviati().stream().map(m->convertToDto(m)).toList();
+    }
 
     private IntercomMessageOutputDto convertToDto(IntercomMessage m)
     {
         IntercomMessageOutputDto dto = new IntercomMessageOutputDto();
-        dto.setEmailSender(m.getDestinatario().getEmail());
+        dto.setEmailSender(m.getMittente().getEmail());
+        dto.setEmailReceiver(m.getDestinatario().getEmail());
         dto.setArchiviato(m.isArchiviato());
+        dto.setRead(m.isRead());
         dto.setContent(m.getContenuto());
         dto.setTimestamp(m.getTimestamp());
         dto.setTitle(m.getTitolo());

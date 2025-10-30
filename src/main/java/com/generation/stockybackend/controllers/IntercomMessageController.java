@@ -15,14 +15,20 @@ public class IntercomMessageController {
     IntercomMessageService serv;
 
     @PostMapping
-    public void inserisci(@RequestBody IntercomMessageInputDto dto){
+    public void inserisci(@RequestBody IntercomMessageInputDto dto)
+    {
         serv.convertToMessageAndSave(dto);
     }
 
     @GetMapping("/{email}")
-    public List<IntercomMessageOutputDto> MyMessages(@PathVariable String email)
+    public List<IntercomMessageOutputDto> receivedMessages(@PathVariable String email)
     {
         return serv.ReadMyMessages(email);
+    }
+    @GetMapping("/{email}")
+    public List<IntercomMessageOutputDto> sentMessages(@PathVariable String email)
+    {
+        return serv.ReadSentMessages(email);
     }
 
 }

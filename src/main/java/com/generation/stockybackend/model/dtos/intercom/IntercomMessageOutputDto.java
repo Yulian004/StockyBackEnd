@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 @Setter
 public class IntercomMessageOutputDto {
     private String emailSender;
+    private String emailReceiver;
     private boolean archiviato;
+    private boolean read;
     private LocalDateTime timestamp;
     private String title;
     private String content;

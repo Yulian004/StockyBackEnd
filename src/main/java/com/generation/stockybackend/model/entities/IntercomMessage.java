@@ -22,6 +22,7 @@ public class IntercomMessage {
     private String titolo;
     private String contenuto;
     private boolean archiviato = false;
+    private boolean read = false;
 
 
 }
