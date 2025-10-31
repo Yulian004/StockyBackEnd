@@ -16,14 +16,14 @@ class StockyBackEndApplicationTests
 	@Test
 	void contextLoads()
 	{
-//		RegisterDto dto = new RegisterDto();
-//		dto.setEmail("admin@mail.it");
-//		dto.setPassword("Admin@1234");
-//		dto.setName("Gabriel");
-//		dto.setSurname("Raffaele");
-//		dto.setRole("ADMIN");
-//
-//		serv.register(dto);
+		RegisterDto dto = new RegisterDto();
+		dto.setEmail("admin@mail.it");
+		dto.setPassword("Admin@1234");
+		dto.setName("Alice");
+		dto.setSurname("Quintili");
+		dto.setRole("ADMIN");
+
+		serv.register(dto);
 	}
 
 }

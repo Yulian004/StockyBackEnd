@@ -97,6 +97,7 @@ public class UserService
     public UserOutputDto convertToUserDto(User u)
     {
         UserOutputDto dto = new UserOutputDto();
+        dto.setId(u.getId());
         dto.setName(u.getName());
         dto.setSurname(u.getSurname());
         dto.setEmail(u.getEmail());
@@ -117,11 +118,21 @@ public class UserService
         res.setEmail(dto.getEmail());
         res.setName(dto.getName());
         res.setSurname(dto.getSurname());
-        if (!dto.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"))
-            throw new InvalidCredentials("Invalid Password");
-        String hash = encoder.encode(dto.getPassword());
-        res.setPassword(hash);
-        res.setRoles(List.of(roleRepo.getUserRole(),roleRepo.findByRoleName(dto.getRole().toUpperCase()).get()));
+        if (dto.getPassword()!=null)
+        {
+            if (!dto.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"))
+                throw new InvalidCredentials("Invalid Password");
+            String hash = encoder.encode(dto.getPassword());
+            res.setPassword(hash);
+        }
+        if (dto.getRole().equalsIgnoreCase("STANDARD")) {
+            res.getRoles().clear();
+            res.getRoles().add(roleRepo.getUserRole());
+        } else {
+            res.getRoles().clear();
+            res.getRoles().add(roleRepo.getUserRole());
+            res.getRoles().add(roleRepo.findByRoleName(dto.getRole().toUpperCase()).get());
+        }
 
         repo.save(res);
 
@@ -150,5 +161,10 @@ public class UserService
         UserOutputDto dto = convertToUserDto(u);
 
         return dto;
+    }
+
+    public void deleteUser(String email)
+    {
+        repo.deleteByEmail(email);
     }
 }

@@ -77,12 +77,16 @@ public class OptionsService
         res.setTime(e.getTime());
         res.setQuantityChange(e.getQuantityChange());
         res.setType(e.getType());
+        res.setProduct(e.getProduct().getName());
+        res.setUser(e.getUser().getEmail());
         return res;
     }
 
     private Options convertToEntity(OptionsInputDto dto)
     {
         Options res = new Options();
+        res.setUser(dto.getUser());
+        res.setProduct(dto.getProduct());
         res.setTime(dto.getTime());
         res.setQuantityChange(dto.getQuantityChange());
         res.setType(dto.getType());

@@ -42,6 +42,12 @@ public class AdminController {
 		userServ.update(id, dto);
 	}
 
+	@DeleteMapping("/{email}")
+	public void delete(@RequestParam String email)
+	{
+		userServ.deleteUser(email);
+	}
+
 //    @GetMapping("/userfromdate")
 //    public List<UserOutputDto> userRegisteredFromDate (@RequestParam LocalDate start)
 //    {
