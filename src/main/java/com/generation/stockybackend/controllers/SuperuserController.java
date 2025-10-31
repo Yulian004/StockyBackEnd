@@ -29,11 +29,6 @@ public class SuperuserController
 	@Autowired
 	private OptionsService optionsServ;
 
-	@GetMapping("/productlist")
-	public List<ProductOutputDto> findAllAsDtos()
-	{
-		return productServ.findAllAsDtos();
-	}
 
 //	@PostMapping("/addproduct")
 //	public void addQuantity(@PathVariable UUID id, @PathVariable int quantita)

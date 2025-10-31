@@ -20,12 +20,12 @@ public class IntercomMessageController {
         serv.convertToMessageAndSave(dto);
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/received/{email}")
     public List<IntercomMessageOutputDto> receivedMessages(@PathVariable String email)
     {
         return serv.ReadMyMessages(email);
     }
-    @GetMapping("/{email}")
+    @GetMapping("/sent/{email}")
     public List<IntercomMessageOutputDto> sentMessages(@PathVariable String email)
     {
         return serv.ReadSentMessages(email);

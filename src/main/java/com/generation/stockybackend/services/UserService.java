@@ -85,6 +85,8 @@ public class UserService
         return op.get();
     }
 
+
+
     public UserOutputDto readUserDto(String token)
     {
         User u = findUserByToken(token);
@@ -99,8 +101,7 @@ public class UserService
         dto.setSurname(u.getSurname());
         dto.setEmail(u.getEmail());
         dto.setRegistrationDate(u.getRegistrationDate());
-        dto.setRoles(u.getRoles().stream().map(Role::getRoleName).collect(Collectors.toSet()));
-
+        dto.setRole(u.getRoles().stream().sorted((r1,r2)->r1.getId()-r2.getId()).findFirst().get().getRoleName());
         return dto;
     }
 
@@ -131,5 +132,23 @@ public class UserService
     {
         List<User> users = repo.findByRegistrationDateGreaterThanEqual(start);
         return users.stream().map(this::convertToUserDto).toList();
+    }
+
+
+    public User findUserByEmail(String email)
+    {
+        Optional<User> op = repo.findByEmail(email);
+        if (op.isEmpty())
+            throw new InvalidCredentials("Invalid Email");
+
+        return op.get();
+    }
+
+    public UserOutputDto getUserByEmail(String email)
+    {
+        User u = findUserByEmail(email);
+        UserOutputDto dto = convertToUserDto(u);
+
+        return dto;
     }
 }

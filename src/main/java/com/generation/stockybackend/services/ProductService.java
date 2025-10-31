@@ -65,7 +65,7 @@ public class ProductService
 			case "food" ->
 			{
 				Food f = (Food)p;
-				res.setExpire_date(f.getExpire_date());
+				res.setExpire_date(f.getExpirationDate());
 				res.setBio(f.isBio());
 				res.setCold(f.getCold());
 
@@ -115,7 +115,7 @@ public class ProductService
 			case "food" ->
 			{
 				Food f = new Food();
-				f.setExpire_date(dto.getExpire_date());
+				f.setExpirationDate(dto.getExpire_date());
 				f.setBio(dto.isBio());
 				f.setCold(dto.getCold());
 				p = f;
@@ -263,7 +263,7 @@ public class ProductService
 	public List<Food> productByExpirationDate(LocalDate date)
 	{
 
-		List<Food> food = fRepo.findFoodByExpire_date(date);
+		List<Food> food = fRepo.findFoodByExpirationDate(date);
 		if(food.isEmpty())
 		{
 			throw new RuntimeException("No product found");
