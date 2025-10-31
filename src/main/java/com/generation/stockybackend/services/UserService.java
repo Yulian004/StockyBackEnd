@@ -85,6 +85,8 @@ public class UserService
         return op.get();
     }
 
+
+
     public UserOutputDto readUserDto(String token)
     {
         User u = findUserByToken(token);
@@ -130,5 +132,23 @@ public class UserService
     {
         List<User> users = repo.findByRegistrationDateGreaterThanEqual(start);
         return users.stream().map(this::convertToUserDto).toList();
+    }
+
+
+    public User findUserByEmail(String email)
+    {
+        Optional<User> op = repo.findByEmail(email);
+        if (op.isEmpty())
+            throw new InvalidCredentials("Invalid Email");
+
+        return op.get();
+    }
+
+    public UserOutputDto getUserByEmail(String email)
+    {
+        User u = findUserByEmail(email);
+        UserOutputDto dto = convertToUserDto(u);
+
+        return dto;
     }
 }

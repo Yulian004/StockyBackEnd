@@ -10,5 +10,5 @@ import java.util.UUID;
 
 public interface FoodRepository extends JpaRepository<Food, UUID>
 {
-	List<Food> findFoodByExpire_date(LocalDate date);
+	List<Food> findFoodByExpirationDate(LocalDate date);
 }

@@ -17,7 +17,7 @@ public class Food extends Product
 {
 
 	@FutureOrPresent
-	private LocalDate expire_date;
+	private LocalDate expirationDate;
 	private boolean bio;
 	@Enumerated(EnumType.STRING)
 	private Cold_Food cold;

@@ -14,5 +14,5 @@ public class RegisterDto
     private String email;
     private String role;
     private String password;
-    private LocalDate registrationDate;
+//    private LocalDate registrationDate;
 }

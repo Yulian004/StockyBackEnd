@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IntercomMessageService {
@@ -29,7 +30,7 @@ public class IntercomMessageService {
         m.setMittente(mittente);
         m.setTitolo(dto.getTitle());
         m.setContenuto(dto.getContent());
-        m.setTimestamp(LocalDateTime.now());
+        m.setTime(LocalDateTime.now());
         repo.save(m);
 
     }
@@ -53,7 +54,7 @@ public class IntercomMessageService {
         dto.setArchiviato(m.isArchiviato());
         dto.setRead(m.isRead());
         dto.setContent(m.getContenuto());
-        dto.setTimestamp(m.getTimestamp());
+        dto.setTimestamp(m.getTime());
         dto.setTitle(m.getTitolo());
         return dto;
     }

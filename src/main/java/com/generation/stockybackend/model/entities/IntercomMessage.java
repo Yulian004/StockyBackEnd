@@ -18,11 +18,11 @@ public class IntercomMessage {
     private User mittente;
     @ManyToOne(fetch = FetchType.EAGER)
     private User destinatario;
-    private LocalDateTime timestamp;
+    private LocalDateTime time;
     private String titolo;
     private String contenuto;
     private boolean archiviato = false;
-    private boolean read = false;
+    private boolean isRead = false;
 
 
 }

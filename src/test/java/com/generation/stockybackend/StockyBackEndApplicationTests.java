@@ -1,5 +1,6 @@
 package com.generation.stockybackend;
 
+import com.generation.stockybackend.model.dtos.auth.RegisterDto;
 import com.generation.stockybackend.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

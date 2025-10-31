@@ -25,9 +25,15 @@ public class AdminController {
 		return userServ.findAllAsDtos();
 	}
 	@PostMapping("/create")
-	public String register(@RequestBody RegisterDto dto)
+	public void register(@RequestBody RegisterDto dto)
 	{
-		return userServ.register(dto);
+	  	userServ.register(dto);
+	}
+
+	@GetMapping("/{email}")
+	public UserOutputDto getUserByEmail(@RequestParam String email)
+	{
+		return userServ.getUserByEmail(email);
 	}
 
 	@PutMapping("/modify")
