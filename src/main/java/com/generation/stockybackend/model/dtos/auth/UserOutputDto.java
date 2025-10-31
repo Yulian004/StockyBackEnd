@@ -11,8 +11,8 @@ import java.util.Set;
 public class UserOutputDto
 {
     private String email;
-    private Set<String> roles;
+    private String role;
     private String name;
     private String surname;
-    private LocalDate registrationDate;
+     private LocalDate registrationDate;
 }
