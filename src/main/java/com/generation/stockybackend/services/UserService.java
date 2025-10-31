@@ -1,18 +1,26 @@
 package com.generation.stockybackend.services;
 
 import com.generation.stockybackend.exceptions.InvalidCredentials;
-import com.generation.stockybackend.model.dtos.LoginDto;
-import com.generation.stockybackend.model.dtos.RegisterDto;
-import com.generation.stockybackend.model.dtos.UserOutputDto;
-import com.generation.stockybackend.model.entities.Role;
-import com.generation.stockybackend.model.entities.User;
-import com.generation.stockybackend.model.repositories.RoleRepository;
-import com.generation.stockybackend.model.repositories.UserRepository;
+import com.generation.stockybackend.model.dtos.auth.LoginDto;
+import com.generation.stockybackend.model.dtos.auth.RegisterDto;
+import com.generation.stockybackend.model.dtos.auth.UserOutputDto;
+import com.generation.stockybackend.model.dtos.product.ProductInputDto;
+import com.generation.stockybackend.model.dtos.product.ProductOutputDto;
+import com.generation.stockybackend.model.dtos.section.SectionOutputDto;
+import com.generation.stockybackend.model.entities.Section;
+import com.generation.stockybackend.model.entities.auth.Role;
+import com.generation.stockybackend.model.entities.auth.User;
+import com.generation.stockybackend.model.entities.products.Product;
+import com.generation.stockybackend.model.repositories.auth.RoleRepository;
+import com.generation.stockybackend.model.repositories.auth.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -39,6 +47,7 @@ public class UserService
         u.setName(dto.getName());
         u.setSurname(dto.getSurname());
         u.setEmail(dto.getEmail());
+        u.setRegistrationDate(LocalDate.now());
         String hash = encoder.encode(dto.getPassword());
         u.setPassword(hash);
 
@@ -89,8 +98,37 @@ public class UserService
         dto.setName(u.getName());
         dto.setSurname(u.getSurname());
         dto.setEmail(u.getEmail());
-        dto.setRoles(u.getRoles().stream().map(Role::getRoleName).collect(Collectors.toSet()));
-
+        dto.setRegistrationDate(u.getRegistrationDate());
+        dto.setRole(u.getRoles().stream().sorted((r1,r2)->r1.getId()-r2.getId()).findFirst().get().getRoleName());
         return dto;
+    }
+
+    public List<UserOutputDto> findAllAsDtos()
+    {
+        return repo.findAll().stream().map(this::convertToUserDto).toList();
+    }
+
+    public void update(UUID id, RegisterDto dto)
+    {
+        User res = repo.findById(id)
+                .orElseThrow( () -> new EntityNotFoundException("Section with %s not found".formatted(id)));
+        res.setEmail(dto.getEmail());
+        res.setName(dto.getName());
+        res.setSurname(dto.getSurname());
+        if (!dto.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$"))
+            throw new InvalidCredentials("Invalid Password");
+        String hash = encoder.encode(dto.getPassword());
+        res.setPassword(hash);
+        res.setRoles(List.of(roleRepo.getUserRole(),roleRepo.findByRoleName(dto.getRole().toUpperCase()).get()));
+
+        repo.save(res);
+
+
+    }
+
+    public List<UserOutputDto> userRegisteredFromDate(LocalDate start)
+    {
+        List<User> users = repo.findByRegistrationDateGreaterThanEqual(start);
+        return users.stream().map(this::convertToUserDto).toList();
     }
 }

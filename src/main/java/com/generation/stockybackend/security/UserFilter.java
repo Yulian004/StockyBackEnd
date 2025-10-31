@@ -1,6 +1,6 @@
 package com.generation.stockybackend.security;
 
-import com.generation.stockybackend.model.entities.User;
+import com.generation.stockybackend.model.entities.auth.User;
 import com.generation.stockybackend.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

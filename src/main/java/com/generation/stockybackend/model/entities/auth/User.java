@@ -1,14 +1,16 @@
-package com.generation.stockybackend.model.entities;
+package com.generation.stockybackend.model.entities.auth;
 
+import com.generation.stockybackend.model.entities.BaseEntity;
+import com.generation.stockybackend.model.entities.IntercomMessage;
+import com.generation.stockybackend.model.entities.Options;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 @Entity
 @Getter
@@ -20,6 +22,13 @@ public class User extends BaseEntity implements UserDetails {
     @Column(unique = true)
     private String email;
     private String token;
+    private LocalDate registrationDate;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "destinatario")
+    private Set<IntercomMessage> messaggiRicevuti;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "mittente")
+    private Set<IntercomMessage> messaggiInviati;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -45,8 +54,12 @@ public class User extends BaseEntity implements UserDetails {
         return email;
     }
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Set<Options> options = new HashSet<>();
 
-
-
-
+    public void addOption(Options option)
+    {
+        options.add(option);
+        option.setUser(this);
+    }
 }

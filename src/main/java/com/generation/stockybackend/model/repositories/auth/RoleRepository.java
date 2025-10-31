@@ -1,6 +1,6 @@
-package com.generation.stockybackend.model.repositories;
+package com.generation.stockybackend.model.repositories.auth;
 
-import com.generation.stockybackend.model.entities.Role;
+import com.generation.stockybackend.model.entities.auth.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

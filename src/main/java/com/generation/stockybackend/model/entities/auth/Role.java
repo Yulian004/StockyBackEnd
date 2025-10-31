@@ -1,4 +1,4 @@
-package com.generation.stockybackend.model.entities;
+package com.generation.stockybackend.model.entities.auth;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

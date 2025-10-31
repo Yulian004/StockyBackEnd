@@ -1,9 +1,9 @@
 package com.generation.stockybackend.controllers;
 
-import com.generation.stockybackend.model.dtos.LoginDto;
-import com.generation.stockybackend.model.dtos.RegisterDto;
-import com.generation.stockybackend.model.dtos.UserOutputDto;
-import com.generation.stockybackend.model.entities.User;
+import com.generation.stockybackend.model.dtos.auth.LoginDto;
+import com.generation.stockybackend.model.dtos.auth.RegisterDto;
+import com.generation.stockybackend.model.dtos.auth.UserOutputDto;
+import com.generation.stockybackend.model.entities.auth.User;
 import com.generation.stockybackend.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,20 +13,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("api")
 public class AuthController
 {
     @Autowired
     private UserService userService;
 
-    @PostMapping("register")
-    public void register(@RequestBody RegisterDto dto)
-    {
-        userService.register(dto);
 
-    }
-
-    @PostMapping("login")
+    @PostMapping("/login")
     public void login(@RequestBody LoginDto dto, HttpServletResponse response)
     {
         String tokenUtente = userService.login(dto);
