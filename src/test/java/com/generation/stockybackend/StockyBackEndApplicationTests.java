@@ -19,8 +19,8 @@ class StockyBackEndApplicationTests
 		RegisterDto dto = new RegisterDto();
 		dto.setEmail("admin@mail.it");
 		dto.setPassword("Admin@1234");
-		dto.setName("Alice");
-		dto.setSurname("Quintili");
+		dto.setName("Mattia");
+		dto.setSurname("Conforto");
 		dto.setRole("ADMIN");
 
 		serv.register(dto);

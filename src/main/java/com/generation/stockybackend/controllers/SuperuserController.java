@@ -51,8 +51,14 @@ public class SuperuserController
 	@DeleteMapping("/delete")
 	public void delete(@RequestParam UUID id){productServ.delete(id);}
 
-	@PutMapping("/update")
-	public void update(@RequestParam UUID id, @RequestParam ProductInputDto dto) {productServ.update(id, dto);}
+	@PutMapping("/update/{id}")
+	public void update(@PathVariable UUID id, @RequestBody ProductInputDto dto) {
+		productServ.update(id, dto);
+	}
+
+
+	//@PutMapping("/update")
+	//public void update(@RequestParam UUID id, @RequestParam ProductInputDto dto) {productServ.update(id, dto);}
 
 	@PostMapping("/create")
 	public void create(@RequestBody ProductInputDto dto) {productServ.create(dto);}
