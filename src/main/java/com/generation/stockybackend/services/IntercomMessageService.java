@@ -1,5 +1,6 @@
 package com.generation.stockybackend.services;
 
+import com.generation.stockybackend.exceptions.UserNotFound;
 import com.generation.stockybackend.model.dtos.intercom.IntercomMessageInputDto;
 import com.generation.stockybackend.model.dtos.intercom.IntercomMessageOutputDto;
 import com.generation.stockybackend.model.entities.IntercomMessage;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,6 +27,13 @@ public class IntercomMessageService {
         IntercomMessage m = new IntercomMessage();
         User destinatario = uRepo.findByEmail2(dto.getEmailReceiver());
         User mittente = uRepo.findByEmail2(dto.getEmailSender());
+
+        if(Objects.isNull(mittente)){
+            throw new UserNotFound("Mittente con email "+dto.getEmailSender()+ " non è stato trovato");
+        }
+        if(Objects.isNull(destinatario)){
+            throw new UserNotFound("Destinatario con email "+dto.getEmailReceiver()+ " non è stato trovato");
+        }
 
         m.setDestinatario(destinatario);
         m.setMittente(mittente);

@@ -1,6 +1,1 @@
-2025-10-31 10:57:30 INFO  [main] c.g.s.services.UserService - Utente registrato con mail admin@mail.it
-2025-10-31 11:42:28 INFO  [http-nio-8080-exec-7] c.g.s.services.UserService - Utente registrato con mail pelli@mail.it
-2025-10-31 11:50:04 INFO  [http-nio-8080-exec-10] c.g.s.services.UserService - Utente registrato con mail pelli@mail.it
-2025-10-31 11:53:07 INFO  [http-nio-8080-exec-1] c.g.s.services.UserService - Utente registrato con mail conforto@mail.it
-2025-10-31 11:53:51 INFO  [http-nio-8080-exec-3] c.g.s.services.UserService - Utente registrato con mail quinto@mail.it
-2025-10-31 15:54:59 INFO  [http-nio-8080-exec-10] c.g.s.services.UserService - Utente registrato con mail rubi@mail.it
+2025-11-04 07:33:32 INFO  [http-nio-8080-exec-8] c.g.s.services.UserService - Utente registrato con mail ciao@mail.it
