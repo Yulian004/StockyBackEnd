@@ -22,7 +22,7 @@ public class ProductOutputDto
 	private String category;
 	private int quantity;
 	private int initialQuantity;
-	private int unit_price;
+	private double unit_price;
 	private double weight;
 	private double volume;
 	private Boolean inStock;

@@ -28,11 +28,11 @@ public class UserFilter extends OncePerRequestFilter
     {
         Cookie[] cookies = request.getCookies();
         String token =extractToken(cookies);
-
         if(token != null)
         {
 
             User u = serv.findUserByToken(token);
+
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(u, null, u.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
         }

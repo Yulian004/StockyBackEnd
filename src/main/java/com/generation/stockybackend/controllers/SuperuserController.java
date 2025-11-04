@@ -1,5 +1,6 @@
 package com.generation.stockybackend.controllers;
 
+import com.generation.stockybackend.model.dtos.options.OperationInTimeDto;
 import com.generation.stockybackend.model.dtos.options.OptionsOutputDto;
 import com.generation.stockybackend.model.dtos.product.ProductInputDto;
 import com.generation.stockybackend.model.dtos.product.ProductOutputDto;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
@@ -71,10 +73,20 @@ public class SuperuserController
 	}
 
 	//filtro operazioni in un lasso di tempo
-	@GetMapping("/operationtime")
-	public List<OptionsOutputDto> OperationsInTime(@RequestParam LocalDate day, @RequestParam LocalTime from, @RequestParam LocalTime to)
+//	@GetMapping("/operationtime")
+//	public List<OptionsOutputDto> OperationsInTime(@RequestParam LocalDate day, @RequestParam LocalTime from, @RequestParam LocalTime to)
+//	{
+//		return optionsServ.OperationsInTime(day, from, to);
+//	}
+	@PostMapping("/operationtime")
+	public List<OptionsOutputDto> OperationsInTime(@RequestBody OperationInTimeDto dto)
 	{
-		return optionsServ.OperationsInTime(day, from, to);
+		return optionsServ.OperationsInTime(dto.getFrom(), dto.getTo());
+	}
+	@PostMapping("/operationtimeUser")
+	public List<OptionsOutputDto> OperationsInTimeWithEmail(@RequestBody OperationInTimeDto dto)
+	{
+		return optionsServ.OperationsInTimeWithMail(dto.getFrom(), dto.getTo(),dto.getEmail());
 	}
 
 	//filtro per operazioni per utente

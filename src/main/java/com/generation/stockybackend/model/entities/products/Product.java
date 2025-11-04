@@ -25,7 +25,7 @@ public class Product extends BaseEntity
 	private String category;
 	private int quantity;
 	private int initialQuantity;
-	private int unit_price;
+	private double unit_price;
 	private static final double sogliaMin  = 0.3;
 	private static final double sogliaMin2 = 0.1;
 	private double weight;

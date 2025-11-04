@@ -16,5 +16,6 @@ public class OptionsInputDto {
     private OptionType type;
     private int quantityChange;
     private Product product;
+    private String email;
     private User user;
 }

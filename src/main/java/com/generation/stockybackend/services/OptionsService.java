@@ -94,12 +94,26 @@ public class OptionsService
         return res;
     }
 
-    public List<OptionsOutputDto> OperationsInTime (LocalDate day, LocalTime from, LocalTime to)
+//    public List<OptionsOutputDto> OperationsInTime (LocalDate day, LocalTime from, LocalTime to)
+//    {
+//        LocalDateTime start = day.atTime(from);
+//        LocalDateTime end = day.atTime(to);
+//        if (!end.isAfter(start)) end = end.plusDays(1);
+//        return repo.findOperationTimeBetween(start, end).stream().map(this::convertToDto).toList();
+//
+//    }
+        public List<OptionsOutputDto> OperationsInTime (LocalDate startDate, LocalDate endDate)
+        {
+            LocalDateTime from = LocalDateTime.of(startDate,LocalTime.of(0,0,0));
+            LocalDateTime to = LocalDateTime.of(endDate,LocalTime.of(23,59,59));
+			return repo.findOperationTimeBetween(from, to).stream().map(this::convertToDto).toList();
+
+        }
+    public List<OptionsOutputDto> OperationsInTimeWithMail (LocalDate startDate, LocalDate endDate, String email)
     {
-        LocalDateTime start = day.atTime(from);
-        LocalDateTime end = day.atTime(to);
-        if (!end.isAfter(start)) end = end.plusDays(1);
-        return repo.findOperationTimeBetween(start, end).stream().map(this::convertToDto).toList();
+        LocalDateTime from = LocalDateTime.of(startDate,LocalTime.of(0,0,0));
+        LocalDateTime to = LocalDateTime.of(endDate,LocalTime.of(23,59,59));
+        return repo.findOperationTimeBetweenAndUserEmail(email,from, to).stream().map(this::convertToDto).toList();
 
     }
 

@@ -27,7 +27,7 @@ public class AuthController
 
         Cookie cookie = new Cookie("token", tokenUtente);
         cookie.setMaxAge(3600);
-        cookie.setPath("/api");
+        cookie.setPath("/");
         response.addCookie(cookie);
     }
 

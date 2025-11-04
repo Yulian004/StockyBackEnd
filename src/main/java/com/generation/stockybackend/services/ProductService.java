@@ -101,7 +101,7 @@ public class ProductService
 	public Product convertToEntity(ProductInputDto dto)
 	{
 		Product p;
-		switch (dto.getType().toLowerCase())
+		switch (dto.getCategory().toLowerCase())
 		{
 			case "clothes" ->
 			{
@@ -212,7 +212,7 @@ public class ProductService
 				.orElseThrow(() -> new EntityNotFoundException("Section %s not found".formatted(dto.getSectionId())));
 		res.setSection(section);
 
-		Product product = repo.save(res);
+		repo.save(res);
 
 	}
 

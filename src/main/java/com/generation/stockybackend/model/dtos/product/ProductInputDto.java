@@ -24,11 +24,10 @@ public class ProductInputDto
 	private String name;
 	private String category;
 	private int quantity;
-	private int unit_price;
+	private double unit_price;
 	private double weight;
 	private double volume;
 	private UUID sectionId;
-	private String type;
 	private String energy_class;
 	private int warranty_months;
 	private LocalDate expire_date;
