@@ -200,6 +200,7 @@ public class ProductService
 
 	public void update(UUID id, ProductInputDto dto)
 	{
+		System.out.println("id" + id);
 		Product res = repo.findById(id)
 				.orElseThrow( () -> new EntityNotFoundException("Section with %s not found".formatted(id)));
 		res.setName(dto.getName());
@@ -208,11 +209,14 @@ public class ProductService
 		res.setUnit_price(dto.getUnit_price());
 		res.setWeight(dto.getWeight());
 		res.setVolume(dto.getVolume());
-		Section section = sRepo.findById(dto.getSectionId())
-				.orElseThrow(() -> new EntityNotFoundException("Section %s not found".formatted(dto.getSectionId())));
-		res.setSection(section);
-
+		if(dto.getSectionId()!=null)
+		{
+			Section section = sRepo.findById(dto.getSectionId())
+					.orElseThrow(() -> new EntityNotFoundException("Section %s not found".formatted(dto.getSectionId())));
+			res.setSection(section);
+		}
 		repo.save(res);
+
 
 	}
 
