@@ -27,6 +27,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->
                         auth
                                 .requestMatchers("/api/login").permitAll()
+                                //messages
+                                .requestMatchers("/api/messages").hasAnyRole("ADMIN","SUPERVISOR","STANDARD")
+                                .requestMatchers(HttpMethod.POST, "/api/messages/**").hasAnyRole("ADMIN","SUPERVISOR","STANDARD")
+                                .requestMatchers(HttpMethod.PUT,"/api/messages/**").authenticated()
+                                .requestMatchers(HttpMethod.DELETE, "/api/messages/**").hasAnyRole("ADMIN","SUPERVISOR","STANDARD")
+
                                 .requestMatchers("/api/userInformation").hasRole("STANDARD")
                                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/api/superuser/**").hasAnyRole("ADMIN","SUPERUSER")
