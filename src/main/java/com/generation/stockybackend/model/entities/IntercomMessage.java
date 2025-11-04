@@ -23,6 +23,7 @@ public class IntercomMessage {
     private String contenuto;
     private boolean archiviato = false;
     private boolean isRead = false;
+    private boolean eliminato = false;
 
 
 }
