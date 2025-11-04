@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,4 +25,6 @@ public interface OptionsRepository extends JpaRepository<Options, UUID>
 
 	List<Options> findOperationByUserId(UUID userId);
 
+	@Query("SELECT o FROM Options o WHERE o.user.email = :email" )
+	List<Options> findOperationByEmail(String email);
 }
