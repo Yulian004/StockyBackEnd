@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/api/superuser/**").hasAnyRole("ADMIN","SUPERUSER")
                                 .requestMatchers("/api/register").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/add", "/api/sub", "/api/adjust").hasRole("STANDARD")
                                 .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("ADMIN","SUPERUSER")
                                 .requestMatchers(HttpMethod.PUT,"/api/**").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("ADMIN","SUPERUSER")
