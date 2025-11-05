@@ -86,7 +86,7 @@ public class SuperuserController
 	@PostMapping("/operationtimeUser")
 	public List<OptionsOutputDto> OperationsInTimeWithEmail(@RequestBody OperationInTimeDto dto)
 	{
-		return optionsServ.OperationsInTimeWithMail(dto.getFrom(), dto.getTo(),dto.getEmail());
+		return optionsServ.OperationsInTimeWithMail(dto.getFrom(), dto.getTo(),dto.getUser());
 	}
 
 	//filtro per operazioni per utente

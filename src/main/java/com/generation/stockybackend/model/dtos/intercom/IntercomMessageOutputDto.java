@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class IntercomMessageOutputDto {
+    private Long id;
     private String emailSender;
     private String emailReceiver;
     private boolean archiviato;
@@ -15,5 +16,6 @@ public class IntercomMessageOutputDto {
     private LocalDateTime timestamp;
     private String title;
     private String content;
+    private boolean eliminato;
 
 }

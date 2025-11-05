@@ -10,7 +10,7 @@ import java.util.UUID;
 @Setter
 public class OperationInTimeDto
 {
-	private String email;
+	private String user;
 	private LocalDate from;
 	private LocalDate to;
 }

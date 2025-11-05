@@ -111,8 +111,13 @@ public class OptionsService
         }
     public List<OptionsOutputDto> OperationsInTimeWithMail (LocalDate startDate, LocalDate endDate, String email)
     {
+        if (startDate == null && endDate == null)
+            return repo.findOperationByEmail(email).stream().map(this::convertToDto).toList();
         LocalDateTime from = LocalDateTime.of(startDate,LocalTime.of(0,0,0));
         LocalDateTime to = LocalDateTime.of(endDate,LocalTime.of(23,59,59));
+        if (email==null)
+            return repo.findOperationTimeBetween(from, to).stream().map(this::convertToDto).toList();
+
         return repo.findOperationTimeBetweenAndUserEmail(email,from, to).stream().map(this::convertToDto).toList();
 
     }
